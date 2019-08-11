@@ -21,7 +21,7 @@ The following guides illustrate how to use some features concretely:
 
 
 # 개발 프레임워크 및 개발환경
-* [Spring Boot 2.1.6 / JAVA8 / maven]
+* [Spring Boot 2.1.6 / JAVA8 / maven / H2DB]
 
 # 문제 해결전략
 * []
@@ -36,6 +36,7 @@ The following guides illustrate how to use some features concretely:
    - Request Body
       - {"username":"test", "password":"test"}
    - 200 OK 응답결과
+      
       {
           "isSuccess": "true",
           "message": "Signup was successful"
@@ -47,13 +48,17 @@ The following guides illustrate how to use some features concretely:
       - Content-Type : application/json;
       - Accept           : application/json;
    - Request Body
-      - {"username":"test", "password":"test"}
+      
+      {"username":"test", "password":"test"}
+   
    - 200 OK 응답결과
-     - {
+     
+     {
         "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqd3MxMzI1NiIsImlhdCI6MTU2NTUyMjY1MSwiZXhwIjoxNTY2Mzg2NjUxfQ.tsS2dkAGXFq33AGQf7viZuf2QBJHw2NF9yL7wF2UNtk",
-"tokenType": "Bearer"
-}
-* [csv 업로드]
+        "tokenType": "Bearer"
+     }
+* [csv File to H2DB]
+
 * [API 1]
 * [API 2]
 * [API 3]
