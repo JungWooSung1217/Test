@@ -42,7 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/auth/**","/console/**", "/api/**").permitAll()
+                .antMatchers("/auth/**","/console/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().disable()
@@ -63,22 +63,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         JWTTokenAuthenticationFilter jwtFilter = new JWTTokenAuthenticationFilter(jwtTokenProvider);
         return jwtFilter;
     }
-
-//    @Override
-//    public void configure(WebSecurity web) {
-//        web.ignoring()
-//                .antMatchers(
-//                        "/img/favicon.png",
-//                        "/**/favicon.*",
-//                        "/css/**",
-//                        "/img/**",
-//                        "/scripts/**",
-//                        "/vendor/**",
-//                        "/vendor/**/*",
-//                        "/built/**/*"
-//                        //"/**/*.*"
-//                );
-//    }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
