@@ -19,3 +19,12 @@ The following guides illustrate how to use some features concretely:
 * [Authenticating a User with LDAP](https://spring.io/guides/gs/authenticating-ldap/)
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
+
+# 개발 프레임워크
+## Spring Boot 2.1.6 
+
+# 문제 해결전략
+
+
+# 빌드 및 실행방법
+
