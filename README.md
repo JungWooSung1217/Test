@@ -28,7 +28,23 @@ The following guides illustrate how to use some features concretely:
 
 # 빌드 및 실행방법
 * [가입하기]
+   HTTP Method **PUT**
+   URL : http://localhost/auth/signup
+   Headers
+      Content-Type : application/json;charset=UTF-8
+      Accept           : application/json
+   Request Body
+      {"username":"test", "password":"test"}
+   200 OK 응답결과
+      {
+          "isSuccess": "true",
+          "message": "Signup was successful"
+      }
 * [로그인]
+   HTTP Method **POST**
+   URL : http://localhost/auth/login
+   Headers
+      
 * [csv 업로드]
 * [API 1]
 * [API 2]
