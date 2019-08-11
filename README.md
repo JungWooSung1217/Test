@@ -20,11 +20,17 @@ The following guides illustrate how to use some features concretely:
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
 
-# 개발 프레임워크 및 언어
+# 개발 프레임워크 및 개발환경
 * [Spring Boot 2.1.6 / JAVA8 / maven]
 
 # 문제 해결전략
 * []
 
 # 빌드 및 실행방법
-* []
+* [가입하기]
+* [로그인]
+* [csv 업로드]
+* [API 1]
+* [API 2]
+* [API 3]
+
