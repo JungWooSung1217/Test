@@ -31,8 +31,8 @@ The following guides illustrate how to use some features concretely:
    - HTTP Method **PUT**
    - URL : http://localhost/auth/signup
    - Headers
-      - Content-Type : application/json;charset=UTF-8
-      - Accept           : application/json
+      - Content-Type : application/json;
+      - Accept           : application/json;
    - Request Body
       - {"username":"test", "password":"test"}
    - 200 OK 응답결과
@@ -41,10 +41,18 @@ The following guides illustrate how to use some features concretely:
           "message": "Signup was successful"
       }
 * [로그인]
-   HTTP Method **POST**
-   URL : http://localhost/auth/login
-   Headers
-      
+   - HTTP Method **POST**
+   - URL : http://localhost/auth/login
+   - Headers
+      - Content-Type : application/json;
+      - Accept           : application/json;
+   - Request Body
+      - {"username":"test", "password":"test"}
+   - 200 OK 응답결과
+     - {
+        "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqd3MxMzI1NiIsImlhdCI6MTU2NTUyMjY1MSwiZXhwIjoxNTY2Mzg2NjUxfQ.tsS2dkAGXFq33AGQf7viZuf2QBJHw2NF9yL7wF2UNtk",
+"tokenType": "Bearer"
+}
 * [csv 업로드]
 * [API 1]
 * [API 2]
