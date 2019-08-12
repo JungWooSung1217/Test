@@ -1,30 +1,12 @@
 # Getting Started
 
-### Reference Documentation
-For further reference, please consider the following sections:
-
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Web Starter](https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-developing-web-applications)
-* [Spring Security](https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-security)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/{bootVersion}/reference/htmlsingle/#boot-features-jpa-and-spring-data)
-
-### Guides
-The following guides illustrate how to use some features concretely:
-
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/bookmarks/)
-* [Securing a Web Application](https://spring.io/guides/gs/securing-web/)
-* [Spring Boot and OAuth2](https://spring.io/guides/tutorials/spring-boot-oauth2/)
-* [Authenticating a User with LDAP](https://spring.io/guides/gs/authenticating-ldap/)
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-
-
 # Development Environment
 * [Spring Boot 2.1.6 / JAVA8 / MAVEN / H2DB / JPA]
 
 # 문제 해결전략
-* 기관과 년/월별 투자금
+* 기관과 년/월별 지원금액 1:N 관계 설정
+* QueryDSL GroupBy 및 JAVA8 Stream API를 통한 데이터 가공
+* JWT를 이용한 Token 발행 및 API 호출시 시그니쳐 검증
 
 # How to Build And Execution
 * 빌드 및 실행
@@ -37,8 +19,33 @@ The following guides illustrate how to use some features concretely:
     - Driver class : org.h2.Driver
     - JDBC URL : jdbc:h2:~/apps/h2db/apidemo;AUTO_SERVER=TRUE
     - User Name : sa
-    - Password :   
-
+    - Password : 
+    
+# JWT Structure
+  - HEADER
+     ```json
+     {
+         "typ": "JWT",
+         "alg": "HS256"
+     }
+    ```
+  - PayLoad
+    ```json
+    {
+        "sub": "test111",
+        "iss": "demoapi.com",
+        "iat": 1565581672,
+        "exp": 1566445672
+    }
+    ```          
+  - Signiture
+    <pre><code>
+    HMACSHA256(
+        base64UrlEncode(header) + "." +
+        base64UrlEncode(payload),
+        secretKey
+    )
+    </code></pre>
 # RESTful URLs
 * **[SignUP]**
    - **PUT** /auth/signup HTTP/1.1
@@ -68,17 +75,32 @@ The following guides illustrate how to use some features concretely:
    - 200 OK Response Body
      ```json
      {
-        "accessToken": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqd3MxMzI1NiIsImlhdCI6MTU2NTUyMjY1MSwiZXhwIjoxNTY2Mzg2NjUxfQ.tsS2dkAGXFq33AGQf7viZuf2QBJHw2NF9yL7wF2UNtk",
+        "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaXNzIjoiZGVtb2FwaS5jb20iLCJpYXQiOjE1NjU1ODE2NzIsImV4cCI6MTU2NjQ0NTY3Mn0.v8ICaBEtI8SxBhUow710iUpOYVub9PkBBW2z3nZyHyw",
         "tokenType": "Bearer"
      }
     ```
+
+* **[토큰 재발행]**
+   - **POST** /refreshtoken HTTP/1.1
+   - URL : http://localhost/refreshtoken
+   - Headers
+      - Accept           : application/json;
+      - Authorization : Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaXNzIjoiZGVtb2FwaS5jb20iLCJpYXQiOjE1NjU1ODE2NzIsImV4cCI6MTU2NjQ0NTY3Mn0.v8ICaBEtI8SxBhUow710iUpOYVub9PkBBW2z3nZyHyw
+   - 200 OK Response Body
+     ```json
+     {
+        "accessToken": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaXNzIjoiZGVtb2FwaS5jb20iLCJpYXQiOjE1NjU1ODE3NTgsImV4cCI6MTU2NjQ0NTc1OH0.U-OPJZ0yD7rkxfYqEmX6Fo0sl7C0al7vmAcFqWGRosg",
+        "tokenType": "Bearer"
+     }
+    ```
+    
 * **[csv File to H2DB]**
    - **POST** /api/save/csv HTTP/1.1
    - URL : http://localhost/api/save/csv
    - Headers
       - Content-Type : multipart/form-data
       - Accept : application/json
-      - Authorization : Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaWF0IjoxNTY1NTY3NDc1LCJleHAiOjE1NjY0MzE0NzV9.0ctIZ2yuvHCjGtvlYiltkyA5JDYh4otyML7QMwv7Lqs
+      - Authorization : Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaXNzIjoiZGVtb2FwaS5jb20iLCJpYXQiOjE1NjU1ODE2NzIsImV4cCI6MTU2NjQ0NTY3Mn0.v8ICaBEtI8SxBhUow710iUpOYVub9PkBBW2z3nZyHyw
    - Form Body
      Content-Disposition: form-data; name="file"; filename="test.csv"
      Content-Type: application/vnd.ms-excel
@@ -94,7 +116,7 @@ The following guides illustrate how to use some features concretely:
    - URL : http://localhost/api/total/year
    - Headers
       - Accept : application/json
-      - Authorization : Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaWF0IjoxNTY1NTY3NDc1LCJleHAiOjE1NjY0MzE0NzV9.0ctIZ2yuvHCjGtvlYiltkyA5JDYh4otyML7QMwv7Lqs
+      - Authorization : Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaXNzIjoiZGVtb2FwaS5jb20iLCJpYXQiOjE1NjU1ODE2NzIsImV4cCI6MTU2NjQ0NTY3Mn0.v8ICaBEtI8SxBhUow710iUpOYVub9PkBBW2z3nZyHyw
    - 200 OK Response Body
       ```json
      {
@@ -174,7 +196,7 @@ The following guides illustrate how to use some features concretely:
    - URL : http://localhost/api/total/year
    - Headers
       - Accept : application/json
-      - Authorization : Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaWF0IjoxNTY1NTY3NDc1LCJleHAiOjE1NjY0MzE0NzV9.0ctIZ2yuvHCjGtvlYiltkyA5JDYh4otyML7QMwv7Lqs
+      - Authorization : Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaXNzIjoiZGVtb2FwaS5jb20iLCJpYXQiOjE1NjU1ODE2NzIsImV4cCI6MTU2NjQ0NTY3Mn0.v8ICaBEtI8SxBhUow710iUpOYVub9PkBBW2z3nZyHyw
    - 200 OK Response Body
       ```json
       {
@@ -187,7 +209,7 @@ The following guides illustrate how to use some features concretely:
    - URL : http://localhost/api/minmax/year
    - Headers
       - Accept : application/json
-      - Authorization : Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaWF0IjoxNTY1NTY3NDc1LCJleHAiOjE1NjY0MzE0NzV9.0ctIZ2yuvHCjGtvlYiltkyA5JDYh4otyML7QMwv7Lqs
+      - Authorization : Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaXNzIjoiZGVtb2FwaS5jb20iLCJpYXQiOjE1NjU1ODE2NzIsImV4cCI6MTU2NjQ0NTY3Mn0.v8ICaBEtI8SxBhUow710iUpOYVub9PkBBW2z3nZyHyw
    - 200 OK Response Body
       ```json
      {

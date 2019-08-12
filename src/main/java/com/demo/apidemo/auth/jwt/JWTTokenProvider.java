@@ -15,6 +15,8 @@ import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JWTTokenProvider {
@@ -42,8 +44,14 @@ public class JWTTokenProvider {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validateMills);
 
+        Map<String, Object> header = new HashMap<>();
+        header.put(Header.TYPE, Header.JWT_TYPE);
+        header.put(JwsHeader.ALGORITHM, SignatureAlgorithm.HS256);
+
         return Jwts.builder()
+                .setHeader(header)
                 .setClaims(claims)
+                .setIssuer("demoapi.com")
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(SignatureAlgorithm.HS256, secretKey)

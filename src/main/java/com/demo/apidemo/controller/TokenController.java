@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -34,18 +35,12 @@ public class TokenController {
     }
 
     @PostMapping("/refreshtoken")
-    public ResponseEntity<?> refreshToken(@RequestBody String idToken) {
-
-        if(jwtTokenProvider.validateToken(idToken)) {
-            User user = (User) jwtTokenProvider.getAuthentication(idToken).getPrincipal();
+    public ResponseEntity<?> refreshToken() {
+            User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             String token = jwtTokenProvider.createToken(user.getUsername());
             JWTAuthenticationResponse response = JWTAuthenticationResponse.builder()
                     .accessToken(token)
                     .build();
             return ResponseEntity.ok(response);
-        }
-
-        return new ResponseEntity(new ApiResponse("false", "Username is already exist"),
-                HttpStatus.BAD_REQUEST);
     }
 }
