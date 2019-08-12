@@ -235,6 +235,7 @@
    - **POST** /api/predict/amount HTTP/1.1
    - URL : http://localhost/api/predict/amount
    - Headers
+      - Content-Type : application/json;   
       - Accept : application/json
       - Authorization : Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaXNzIjoiZGVtb2FwaS5jb20iLCJpYXQiOjE1NjU1ODE2NzIsImV4cCI6MTU2NjQ0NTY3Mn0.v8ICaBEtI8SxBhUow710iUpOYVub9PkBBW2z3nZyHyw
    - Request Body
