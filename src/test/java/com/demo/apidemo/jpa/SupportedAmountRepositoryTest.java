@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import static org.junit.Assert.*;
 
 import javax.persistence.EntityNotFoundException;
+import java.util.List;
 import java.util.Optional;
 
 @RunWith(SpringRunner.class)
@@ -52,5 +53,14 @@ public class SupportedAmountRepositoryTest {
         assertEquals(findSupportedAmount.getMoney(), 1850);
         assertEquals(Optional.ofNullable(findSupportedAmount.getInstitute().getInstituteCode()), Optional.of(1L));
         assertEquals(findSupportedAmount.getInstitute().getInstituteName(), "주택도시기금");
+
+        List<SupportedAmount> findSuppoirtedAmountList =
+                supportedAmountRepository.findByInstitute_InstituteNameAndMonth("주택도시기금", 1);
+        assertEquals(findSuppoirtedAmountList.size(), 1);
+        assertEquals(findSuppoirtedAmountList.get(0).getYear(), 2004);
+        assertEquals(findSuppoirtedAmountList.get(0).getMonth(), 1);
+        assertEquals(findSuppoirtedAmountList.get(0).getMoney(), 1850);
+        assertEquals(Optional.ofNullable(findSuppoirtedAmountList.get(0).getInstitute().getInstituteCode()), Optional.of(1L));
+        assertEquals(findSuppoirtedAmountList.get(0).getInstitute().getInstituteName(), "주택도시기금");
     }
 }

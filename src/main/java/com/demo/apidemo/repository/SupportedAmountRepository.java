@@ -8,6 +8,5 @@ import java.util.List;
 
 public interface SupportedAmountRepository extends JpaRepository<SupportedAmount, Long> {
 
-    //List<SupportedAmount> findByInstitute_institute_nameAndMonth(String instituteName, int month);
     List<SupportedAmount> findByInstitute_InstituteNameAndMonth(String instituteName, int month);
 }
