@@ -20,9 +20,6 @@ public class Institute {
     @Column(name = "institute_name")
     private String instituteName;
 
-    //@OneToMany(mappedBy = "amount")
-    //List<SupportedAmount> invements = new ArrayList<>();
-
     @Builder
     public Institute(Long instituteCode, String instituteName) {
         this.instituteCode = instituteCode;

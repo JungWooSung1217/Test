@@ -2,6 +2,7 @@ package com.demo.apidemo.controller;
 
 import com.demo.apidemo.auth.util.CSVReaderUtil;
 import com.demo.apidemo.dto.ApiResponse;
+import com.demo.apidemo.dto.PredictRequest;
 import com.demo.apidemo.entity.Institute;
 import com.demo.apidemo.entity.SupportedAmount;
 import com.demo.apidemo.service.amount.SupportedAmountService;
@@ -88,5 +89,10 @@ public class ApiController {
         result.put("bank", bankName);
         result.put("support_amount", queryDslService.getAverageMinMax(bankName));
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/predict/amount")
+    public ResponseEntity<?> predictAmount(@RequestBody PredictRequest request) {
+        return ResponseEntity.ok(supportedAmountService.predictAmount(request.getBankName(), request.getMonth()));
     }
 }
