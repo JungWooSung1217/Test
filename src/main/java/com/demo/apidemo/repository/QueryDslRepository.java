@@ -51,7 +51,6 @@ public class QueryDslRepository extends QuerydslRepositorySupport {
     public MaxAverageResult getMaxAverageYear() {
         QSupportedAmount qSupportedAmount = QSupportedAmount.supportedAmount;
         QInstitute qInstitute = QInstitute.institute;
-        //NumberPath<Integer> aliasViews = Expressions.numberPath(Integer.class, "average");
         return jpaQueryFactory
                 .from(qSupportedAmount)
                 .join(qInstitute)

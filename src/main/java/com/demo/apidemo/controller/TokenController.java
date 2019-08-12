@@ -1,11 +1,9 @@
 package com.demo.apidemo.controller;
 
 import com.demo.apidemo.auth.jwt.JWTTokenProvider;
-import com.demo.apidemo.dto.ApiResponse;
 import com.demo.apidemo.dto.AuthenticationRequest;
 import com.demo.apidemo.dto.JWTAuthenticationResponse;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;

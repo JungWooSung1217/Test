@@ -1,6 +1,7 @@
 package com.demo.apidemo.entity;
 
 import lombok.Builder;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
@@ -9,6 +10,7 @@ import javax.persistence.*;
 
 @ToString
 @NoArgsConstructor
+@EqualsAndHashCode
 @Getter
 @Entity
 public class SupportedAmount {
