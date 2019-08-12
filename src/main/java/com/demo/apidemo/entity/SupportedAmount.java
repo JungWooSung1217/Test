@@ -11,7 +11,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Getter
 @Entity
-public class Investment {
+public class SupportedAmount {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,7 +27,7 @@ public class Investment {
     private Institute institute;
 
     @Builder
-    public Investment(int year, int month, int money, Institute institute) {
+    public SupportedAmount(int year, int month, int money, Institute institute) {
         this.year = year;
         this.month = month;
         this.money = money;

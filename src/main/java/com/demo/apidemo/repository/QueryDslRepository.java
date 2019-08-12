@@ -5,7 +5,7 @@ import com.demo.apidemo.dto.MinMaxResult;
 import com.demo.apidemo.dto.TotalAmountByYear;
 import com.demo.apidemo.dto.TotalByYearResult;
 import com.demo.apidemo.entity.QInstitute;
-import com.demo.apidemo.entity.QInvestment;
+import com.demo.apidemo.entity.QSupportedAmount;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.jpa.repository.support.QuerydslRepositorySupport;
@@ -25,60 +25,60 @@ public class QueryDslRepository extends QuerydslRepositorySupport {
     }
 
     public List<TotalByYearResult> getTotalByYear() {
-        QInvestment qInvestment = QInvestment.investment;
+        QSupportedAmount qSupportedAmount = QSupportedAmount.supportedAmount;
         return jpaQueryFactory
-                .from(qInvestment)
-                .groupBy(qInvestment.year,
-                        qInvestment.institute.instituteName)
+                .from(qSupportedAmount)
+                .groupBy(qSupportedAmount.year,
+                        qSupportedAmount.institute.instituteName)
                 .select(Projections.fields(TotalByYearResult.class,
-                        qInvestment.money.sum().as("averageAmount"),
-                        qInvestment.year.as("year"),
-                        qInvestment.institute.instituteName.as("instituteName")))
+                        qSupportedAmount.money.sum().as("averageAmount"),
+                        qSupportedAmount.year.as("year"),
+                        qSupportedAmount.institute.instituteName.as("instituteName")))
                 .fetch();
     }
 
     public List<TotalAmountByYear> getTotalAmountByYear() {
-        QInvestment qInvestment = QInvestment.investment;
+        QSupportedAmount qSupportedAmount = QSupportedAmount.supportedAmount;
         return jpaQueryFactory
-                .from(qInvestment)
-                .groupBy(qInvestment.year)
+                .from(qSupportedAmount)
+                .groupBy(qSupportedAmount.year)
                 .select(Projections.fields(TotalAmountByYear.class,
-                        qInvestment.year.as("year"),
-                        qInvestment.money.sum().as("totalAmount")))
+                        qSupportedAmount.year.as("year"),
+                        qSupportedAmount.money.sum().as("totalAmount")))
                 .fetch();
     }
 
     public MaxAverageResult getMaxAverageYear() {
-        QInvestment qInvestment = QInvestment.investment;
+        QSupportedAmount qSupportedAmount = QSupportedAmount.supportedAmount;
         QInstitute qInstitute = QInstitute.institute;
         //NumberPath<Integer> aliasViews = Expressions.numberPath(Integer.class, "average");
         return jpaQueryFactory
-                .from(qInvestment)
+                .from(qSupportedAmount)
                 .join(qInstitute)
-                .on(qInvestment.institute.instituteCode.eq(qInstitute.instituteCode))
-                .groupBy(qInvestment.institute.instituteName,
-                        qInvestment.year)
+                .on(qSupportedAmount.institute.instituteCode.eq(qInstitute.instituteCode))
+                .groupBy(qSupportedAmount.institute.instituteName,
+                        qSupportedAmount.year)
                 .select(Projections.fields(MaxAverageResult.class,
-                        qInvestment.money.avg().intValue().as("average"),
-                        qInvestment.institute.instituteName.as("bank"),
-                        qInvestment.year))
+                        qSupportedAmount.money.avg().intValue().as("average"),
+                        qSupportedAmount.institute.instituteName.as("bank"),
+                        qSupportedAmount.year))
                 .fetch()
                 .stream().max(Comparator.comparing(MaxAverageResult::getAverage)).get();
     }
 
     public List<MinMaxResult> getAverageMinMax(String bankName) {
-        QInvestment qInvestment = QInvestment.investment;
+        QSupportedAmount qSupportedAmount = QSupportedAmount.supportedAmount;
         QInstitute qInstitute = QInstitute.institute;
         List<MinMaxResult> queryResult = jpaQueryFactory
-                .from(qInvestment)
+                .from(qSupportedAmount)
                 .join(qInstitute)
-                .on(qInvestment.institute.instituteCode.eq(qInstitute.instituteCode))
-                .groupBy(qInvestment.institute.instituteName, qInvestment.year)
-                .having(qInvestment.institute.instituteName.eq(bankName))
+                .on(qSupportedAmount.institute.instituteCode.eq(qInstitute.instituteCode))
+                .groupBy(qSupportedAmount.institute.instituteName, qSupportedAmount.year)
+                .having(qSupportedAmount.institute.instituteName.eq(bankName))
                 .select(Projections.fields(MinMaxResult.class,
-                        qInvestment.money.avg().intValue().as("amount"),
-                        qInvestment.institute.instituteName.as("bank"),
-                        qInvestment.year))
+                        qSupportedAmount.money.avg().intValue().as("amount"),
+                        qSupportedAmount.institute.instituteName.as("bank"),
+                        qSupportedAmount.year))
                 .fetch();
         List<MinMaxResult> resultList = new ArrayList<>();
         resultList.add(queryResult.stream().max(Comparator.comparing(MinMaxResult::getAmount)).get());

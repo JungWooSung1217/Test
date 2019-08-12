@@ -20,14 +20,27 @@ The following guides illustrate how to use some features concretely:
 * [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
 
 
-# 개발 프레임워크 및 개발환경
+# Development Environment
 * [Spring Boot 2.1.6 / JAVA8 / MAVEN / H2DB / JPA]
 
 # 문제 해결전략
-* []
+* 기관과 년/월별 투자금
 
-# 빌드 및 실행방법
-* [가입하기]
+# How to Build And Execution
+* 빌드 및 실행
+  1. mvn clean compile spring-boot:run 
+  2. java -jar apidemo-0.0.1-SNAPSHOT.jar
+  
+# Connect H2DB console
+  - URL : http://localhost/console/
+  - Login
+    - Driver class : org.h2.Driver
+    - JDBC URL : jdbc:h2:~/apps/h2db/apidemo;AUTO_SERVER=TRUE
+    - User Name : sa
+    - Password :   
+
+# RESTful URLs
+* **[SignUP]**
    - **PUT** /auth/signup HTTP/1.1
    - URL : http://localhost/auth/signup
    - Headers
@@ -42,7 +55,7 @@ The following guides illustrate how to use some features concretely:
           "message": "Signup was successful"
       }
      ```
-* [로그인]
+* **[로그인]**
    - **POST** /auth/login HTTP/1.1
    - URL : http://localhost/auth/login
    - Headers
@@ -59,7 +72,7 @@ The following guides illustrate how to use some features concretely:
         "tokenType": "Bearer"
      }
     ```
-* [csv File to H2DB]
+* **[csv File to H2DB]**
    - **POST** /api/save/csv HTTP/1.1
    - URL : http://localhost/api/save/csv
    - Headers
@@ -76,7 +89,7 @@ The following guides illustrate how to use some features concretely:
           "message": "The file was saved successful"
       }
       ```
-* [API 1]
+* **[API 1]**
    - **GET** /api/total/year HTTP/1.1
    - URL : http://localhost/api/total/year
    - Headers
@@ -156,7 +169,7 @@ The following guides illustrate how to use some features concretely:
         ]
      }
      ``` 
-* [API 2]
+* **[API 2]**
    - **GET** /api/max/year HTTP/1.1
    - URL : http://localhost/api/total/year
    - Headers
@@ -169,7 +182,7 @@ The following guides illustrate how to use some features concretely:
           "bank": "주택도시기금"
       }
      ```
-* [API 3]
+* **[API 3]**
    - **GET** /api/minmax/year HTTP/1.1
    - URL : http://localhost/api/minmax/year
    - Headers

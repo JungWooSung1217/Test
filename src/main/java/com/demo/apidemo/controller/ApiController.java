@@ -3,8 +3,8 @@ package com.demo.apidemo.controller;
 import com.demo.apidemo.auth.util.CSVReaderUtil;
 import com.demo.apidemo.dto.ApiResponse;
 import com.demo.apidemo.entity.Institute;
-import com.demo.apidemo.entity.Investment;
-import com.demo.apidemo.service.investment.InvestmentService;
+import com.demo.apidemo.entity.SupportedAmount;
+import com.demo.apidemo.service.amount.SupportedAmountService;
 import com.demo.apidemo.service.querydsl.QueryDslService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +24,7 @@ import java.util.List;
 public class ApiController {
 
     @Autowired
-    InvestmentService investmentService;
+    SupportedAmountService supportedAmountService;
 
     @Autowired
     QueryDslService queryDslService;
@@ -46,8 +46,8 @@ public class ApiController {
                                     replaceAll("\\(억원\\)", "")
                                     .replaceAll("1\\)", ""))
                             .build();
-                    if(!investmentService.existByInstituteName(institute.getInstituteName())) {
-                        investmentService.saveInstitute(institute);
+                    if(!supportedAmountService.existByInstituteName(institute.getInstituteName())) {
+                        supportedAmountService.saveInstitute(institute);
                         instituteList.add(institute);
                     }
                 }
@@ -56,14 +56,14 @@ public class ApiController {
                 int year = Integer.parseInt(csvList.get(i)[0]);
                 int month = Integer.parseInt(csvList.get(i)[1]);
                 for(int k=2; k<= 10; k++) {
-                    Investment investment = Investment
+                    SupportedAmount supportedAmount = SupportedAmount
                             .builder()
                             .year(year)
                             .month(month)
                             .money(Integer.parseInt(csvList.get(i)[k].replaceAll(",", "")))
                             .institute(instituteList.get(k-2))
                             .build();
-                    investmentService.saveInvestment(investment);
+                    supportedAmountService.saveSupportedAmount(supportedAmount);
                 }
             }
         }

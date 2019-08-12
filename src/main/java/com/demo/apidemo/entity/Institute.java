@@ -20,8 +20,8 @@ public class Institute {
     @Column(name = "institute_name")
     private String instituteName;
 
-    //@OneToMany(mappedBy = "investment")
-    //List<Investment> invements = new ArrayList<>();
+    //@OneToMany(mappedBy = "amount")
+    //List<SupportedAmount> invements = new ArrayList<>();
 
     @Builder
     public Institute(Long instituteCode, String instituteName) {
