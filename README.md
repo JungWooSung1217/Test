@@ -7,6 +7,7 @@
 * 기관과 년/월별 지원금액 1:N 관계 설정
 * QueryDSL GroupBy 및 JAVA8 Stream API를 통한 데이터 가공
 * JWT를 이용한 Token 발행 및 API 호출시 시그니쳐 검증
+* 지수평활법(Exponential Smoothing)을 활용한 금융지원 금액 예측 알고리즘 작성
 
 # How to Build And Execution
 * 빌드 및 실행
@@ -227,6 +228,26 @@
                 "amount": 0
             }
          ]
+     }
+     ```
+
+* **[예측 API]**
+   - **POST** /api/predict/amount HTTP/1.1
+   - URL : http://localhost/api/predict/amount
+   - Headers
+      - Accept : application/json
+      - Authorization : Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaXNzIjoiZGVtb2FwaS5jb20iLCJpYXQiOjE1NjU1ODE2NzIsImV4cCI6MTU2NjQ0NTY3Mn0.v8ICaBEtI8SxBhUow710iUpOYVub9PkBBW2z3nZyHyw
+   - Request Body
+      ```json
+      {"bankName":"국민은행","month":2}
+     ```
+   - 200 OK Response Body
+     ```json
+     {
+         "bank": "국민은행",
+         "year": 2018,
+         "month": 2,
+         "amount": 3339
      }
      ```
 
