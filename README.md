@@ -114,7 +114,7 @@
       ```
 
 * **[Bank List API]**
-   - ** 주택금융 공급 금융기관(은행) 목록 출력
+   - ** 주택금융 공급 금융기관(은행) 목록 출력**
    - **GET** /api/save/csv HTTP/1.1
    - URL : http://localhost/api/banklist
    - Headers
@@ -163,7 +163,7 @@
       ```  
       
 * **[API 1]**
-   - **년도별 각 금융기관 지원금액 합계
+   - **년도별 각 금융기관 지원금액 합계 **
    - **GET** /api/total/year HTTP/1.1
    - URL : http://localhost/api/total/year
    - Headers
@@ -244,7 +244,7 @@
      }
      ``` 
 * **[API 2]**
-   - 각 년도별 각 기관의 지원금액 중에서 가장 큰 금액의 기관명을 출력하는 API
+   - **각 년도별 각 기관의 지원금액 중에서 가장 큰 금액의 기관명을 출력하는 API**
    - **GET** /api/max/year HTTP/1.1
    - URL : http://localhost/api/total/year
    - Headers
@@ -258,7 +258,7 @@
       }
      ```
 * **[API 3]**
-   - 외환은행의 지원금액 평균중에서 가장 작은 금액과 큰 금액을 출력하는 API
+   - **외환은행의 지원금액 평균중에서 가장 작은 금액과 큰 금액을 출력하는 API**
    - **GET** /api/minmax/year HTTP/1.1
    - URL : http://localhost/api/minmax/year
    - Headers
@@ -285,7 +285,7 @@
      ```
 
 * **[예측 API]**
-   - 특정 은행의 특정 달에 대하여 금융지원 금액을 예측하는 API
+   - **특정 은행의 특정 달에 대하여 금융지원 금액을 예측하는 API**
    - **POST** /api/predict/amount HTTP/1.1
    - URL : http://localhost/api/predict/amount
    - Headers
