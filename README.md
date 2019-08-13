@@ -7,7 +7,7 @@
 * 기관과 년/월별 지원금액 1:N 관계 설정
 * QueryDSL GroupBy 및 JAVA8 Stream API를 통한 데이터 가공
 * JWT를 이용한 Token 발행 및 API 호출시 시그니쳐 검증
-* 지수평활법(Exponential Smoothing)을 활용한 금융지원 금액 예측 알고리즘 작성
+* 지수평활법(Exponential Smoothing)을 활용한 금융지원 금액 예측 API 작성
 
 # How to Build And Execution
 * 빌드 및 실행
@@ -112,6 +112,55 @@
           "message": "The file was saved successful"
       }
       ```
+
+* **[Bank List API]**
+   - **GET** /api/save/csv HTTP/1.1
+   - URL : http://localhost/api/banklist
+   - Headers
+      - Accept : application/json
+      - Authorization : Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJ0ZXN0MTExIiwiaXNzIjoiZGVtb2FwaS5jb20iLCJpYXQiOjE1NjU1ODE2NzIsImV4cCI6MTU2NjQ0NTY3Mn0.v8ICaBEtI8SxBhUow710iUpOYVub9PkBBW2z3nZyHyw
+   - 200 OK Response Body
+      ```json
+      [
+        {
+        "instituteCode": 1,
+        "instituteName": "주택도시기금"
+        },
+        {
+        "instituteCode": 2,
+        "instituteName": "국민은행"
+        },
+        {
+        "instituteCode": 3,
+        "instituteName": "우리은행"
+        },
+        {
+        "instituteCode": 4,
+        "instituteName": "신한은행"
+        },
+        {
+        "instituteCode": 5,
+        "instituteName": "한국시티은행"
+        },
+        {
+        "instituteCode": 6,
+        "instituteName": "하나은행"
+        },
+        {
+        "instituteCode": 7,
+        "instituteName": "농협은행/수협은행"
+        },
+        {
+        "instituteCode": 8,
+        "instituteName": "외환은행"
+        },
+        {
+        "instituteCode": 9,
+        "instituteName": "기타은행"
+        }
+      ]
+      ```  
+      
 * **[API 1]**
    - **GET** /api/total/year HTTP/1.1
    - URL : http://localhost/api/total/year

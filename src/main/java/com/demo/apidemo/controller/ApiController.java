@@ -5,6 +5,7 @@ import com.demo.apidemo.dto.ApiResponse;
 import com.demo.apidemo.dto.PredictRequest;
 import com.demo.apidemo.entity.Institute;
 import com.demo.apidemo.entity.SupportedAmount;
+import com.demo.apidemo.service.amount.InstituteService;
 import com.demo.apidemo.service.amount.SupportedAmountService;
 import com.demo.apidemo.service.querydsl.QueryDslService;
 import lombok.extern.slf4j.Slf4j;
@@ -26,6 +27,9 @@ public class ApiController {
 
     @Autowired
     SupportedAmountService supportedAmountService;
+
+    @Autowired
+    InstituteService instituteService;
 
     @Autowired
     QueryDslService queryDslService;
@@ -70,6 +74,11 @@ public class ApiController {
         }
 
         return ResponseEntity.ok(new ApiResponse("success", "The file was saved successful"));
+    }
+
+    @GetMapping("/banklist")
+    public ResponseEntity<?> bankList() {
+        return ResponseEntity.ok(instituteService.findAll());
     }
 
     @GetMapping("/total/year")
